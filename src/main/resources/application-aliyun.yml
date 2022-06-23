@@ -1,0 +1,35 @@
+#--------------------------   开发环境    ----------------------------------------
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  #端口
+  port: 20001
+  servlet:
+    session:
+      tracking-modes: cookie
+      cookie:
+        http-only: true
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.106.12.142:3306/jelly?characterEncoding=UTF-8&useUnicode=false&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    hikari:
+      username: root
+      password: Xiaodiu666...
+      connection-test-query: select 1
+      minimum-idle: 1
+      maximum-pool-size: 6
+      validation-timeout: 2000
+      connection-timeout: 5000
+      auto-commit: true
+      max-lifetime: 1800000
+      idle-timeout: 600000
+  jackson:
+    time-zone: GMT+8
+
+sys:
+  file:
+    upload:
+      path: /usr/local/nginx/html/file/ #上传路径前缀
+      relative: http://39.106.12.142/file/ #预览下载路径前缀

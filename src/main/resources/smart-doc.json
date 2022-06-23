@@ -1,0 +1,24 @@
+{
+  "serverUrl": "http://39.106.12.142",
+  "isStrict": false,
+  "allInOne": true,
+  "outPath": "src/main/resources/doc",
+  "coverOld": true,
+  "packageFilters": "",
+  "md5EncryptedHtmlName": false,
+  "projectName": "springboot-mysql",
+  "showAuthor":false,
+  "pathPrefix": "springboot-mysql",
+  "createDebugPage": true,
+  "requestHeaders": [
+
+  ],
+  "apiConstants": [
+    {
+      "constantsClassName": "com.Constant"
+    }
+  ],
+  "responseBodyAdvice":{
+    "className":"com.entity.base.AjaxResult"
+  }
+}

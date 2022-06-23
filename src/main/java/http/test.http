@@ -1,0 +1,6 @@
+### 测试是否能从数据库获取当前时间
+GET http://localhost:20000/springboot/getTime
+
+###
+
+

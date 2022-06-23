@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.repository.api.ApiRepository">
+
+    <select id="selectList" resultType="java.util.Map">
+        select
+        <choose>
+            <when test="null == param.fieldList || param.fieldList.size == 0">
+                *
+            </when>
+            <otherwise>
+                <foreach collection="param.fieldList" item="field" separator=",">
+                    ${field}
+                </foreach>
+            </otherwise>
+        </choose>
+        from ${param.tableName}
+        where ${queryString}
+        <if test="param.orderName != null and param.orderName!=''">
+            order by ${param.orderName}
+        </if>
+        <if test=" null != param.start">
+            limit #{param.start},#{param.limit}
+        </if>
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(0) from ${param.tableName}
+        where ${queryString}
+    </select>
+    <select id="getFieldType" resultType="java.lang.String">
+        SELECT
+                T.typname AS TYPE
+            FROM
+                pg_class C,
+                pg_attribute
+                A LEFT JOIN pg_description b ON A.attrelid = b.objoid
+                AND A.attnum = b.objsubid,
+                pg_type T
+            WHERE
+                C.relname = #{tableName}
+                AND A.attname = #{fieldName}
+                AND A.attnum > 0
+                AND A.attrelid = C.oid
+                AND A.atttypid = T.oid
+    </select>
+    <select id="selectCountDIY" resultType="java.lang.Integer">
+        select count(0) from (
+            ${diySqlString}
+        ) t
+    </select>
+    <select id="selectListDIY" resultType="java.util.Map">
+        ${diySqlString}
+        <if test="start!=null and start !=''">
+            limit #{start},#{limit}
+        </if>
+    </select>
+    <insert id="insert" parameterType="java.lang.Integer">
+        insert into ${param.tableName}
+        (
+        <foreach collection="param.fieldName" item="field" separator=",">
+            ${field}
+        </foreach>
+        )values
+        (${sqlString})
+    </insert>
+    <update id="update" parameterType="java.lang.Integer">
+        update ${tableName}
+        set
+        ${sqlString}
+        where id = #{id}
+    </update>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from ${tableName}
+        where 1=1
+        <if test="null != ids and ids.size()>0">
+            and ${keyName} in
+        </if>
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

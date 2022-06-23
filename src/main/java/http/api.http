@@ -1,0 +1,49 @@
+### 自定义sql拼接查询
+POST http://localhost:20001/springboot-mysql/select
+Content-Type: application/json
+
+{
+  "tableName": "test",
+  "fieldName": ["id","name"],
+  "orderName": "id desc,name desc"
+}
+
+### 使用data同步数据
+POST http://localhost:20000/springboot/saveOrUpdate
+Content-type: application/json;charset=UTF-8
+
+{
+  "tableName":"test",
+  "fieldName":["name"],
+  "data":[
+    ["ceshi"],["测试2"]
+  ],
+  "handleType":"insert"
+}
+
+### 使用mapData同步数据
+POST http://localhost:20000/springboot/saveOrUpdate
+Content-type: application/json;charset=UTF-8
+
+{
+  "tableName":"test",
+  "fieldName":["id","name"],
+  "mapData":[
+    {"id":"1","name":"ceshi3"}
+  ],
+  "handleType":"update"
+}
+
+### 使用mapData删除数据
+POST http://localhost:20000/springboot/delete
+Content-type: application/json;charset=UTF-8
+
+{
+  "tableName":"test",
+  "keyName":"id",
+  "ids": [5]
+}
+
+###
+
+

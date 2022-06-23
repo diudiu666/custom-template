@@ -1,0 +1,26 @@
+
+spring:
+  #环境切换设置
+  jmx:
+    #同一个Tomcat下jmx名字必须是唯一
+    default-domain: com.springboot
+  profiles:
+    active: aliyun
+    #热启动
+  devtools:
+    restart:
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+#项目名
+server:
+  servlet:
+    context-path: /springboot-mysql
+
+# Mybatis配置
+mybatis:
+  mapperLocations: classpath:mybatis/**/*.xml
+  configLocation: classpath:mybatis.xml
+
